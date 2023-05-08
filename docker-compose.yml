@@ -1,0 +1,16 @@
+version: '3.3'
+services:
+  worker:
+    image: generator-investor-list
+    build: ./
+    working_dir: '/usr/src/app'
+    volumes:
+      - ~/.aws:/root/.aws:ro
+      - ./app:/usr/src/app
+    entrypoint: /bin/bash
+    # stdin_open: true
+    tty: true
+    restart: always
+    # environment:
+    #   LOCAL_DEBUG: 1
+

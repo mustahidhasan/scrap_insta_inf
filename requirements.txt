@@ -1,0 +1,16 @@
+boto3
+simplejson
+chromedriver_binary
+selenium==4.7.1
+joblib
+tqdm
+webdriver_manager
+chromedriver_autoinstaller
+graphqlclient
+pillow
+s3fs
+bs4
+aiohttp
+pytest
+pandas
+python-dotenv
