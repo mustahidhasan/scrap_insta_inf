@@ -3,7 +3,9 @@ import csv
 import time
 from selenium.webdriver.common.by import By
 from driver_setup import DriverSetup
-
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.keys import Keys
 """
 InstagramInfluencer class.
 
@@ -82,9 +84,23 @@ class InstagramInfluencer:
             time.sleep(10)
 
             # get the search option not working
-            click_search_option = self.driver.find_element(By.XPATH, "//*[@id='mount_0_0_UQ']/div/div/div[2]/div/div/div/div[1]/div[1]/div[1]/div/div/div[1]/div/div[2]/div[2]/div/a")
-            #click the search option
+            click_search_option = self.driver.find_element(By.XPATH, "/html/body/div[2]/div/div/div[2]/div/div/div/div[1]/div[1]/div[1]/div/div/div/div/div[2]/div[2]")
+            self.driver.execute_script("arguments[0].scrollIntoView();", click_search_option)
             click_search_option.click()
+            time.sleep(5)
+
+            #get the search box & search the influencer
+            get_search_box = self.driver.find_element(By.XPATH, "/html/body/div[2]/div/div/div[2]/div/div/div/div[1]/div[1]/div[1]/div/div/div[2]/div/div/div[2]/div[1]/div/input")
+            get_search_box.send_keys(self.keyword) 
+            time.sleep(5)
+            get_search_box.send_keys(Keys.ENTER)
+            time.sleep(2)
+            get_search_box.send_keys(Keys.ENTER)
+
+
+            time.sleep(50)
+            #click the search option
+            # click_search_option.click()
             
         except Exception as e:
             print(f"Error search the influencer: {e}")

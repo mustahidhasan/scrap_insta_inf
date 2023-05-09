@@ -7,7 +7,7 @@ def main():
     :return:
     """
     url_list_to_scrape = [
-        {"url": "https://www.instagram.com/", "keyword": ["robertdowneyjr/"], "function": "get_insta_inf_info"}, # to send the event to the hotpapper scrape function
+        {"url": "https://www.instagram.com/", "keyword": ["robertdowneyjr"], "function": "get_insta_inf_info"}, # to send the event to the hotpapper scrape function
 
     ]
     for url_list_elem in url_list_to_scrape:
