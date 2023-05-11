@@ -6,6 +6,14 @@ from driver_setup import DriverSetup
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
+
+# Read username and password from environment variables
+USERNAME = os.getenv('USERNAME')
+PASSWORD = os.getenv('PASSWORD')
 """
 InstagramInfluencer class.
 
@@ -25,6 +33,7 @@ class InstagramInfluencer:
         self.driver = None
         # set the URL to be opened by the web driver
         self.url = url
+        load_dotenv()
 
     def init_driver(self):
         """
@@ -53,11 +62,11 @@ class InstagramInfluencer:
         time.sleep(5)
 
         get_user_name = self.driver.find_element(By.XPATH, "/html/body/div[2]/div/div/div[1]/div/div/div/div[1]/section/main/article/div[2]/div[1]/div[2]/form/div/div[1]/div/label/input")
-        get_user_name.send_keys("mustahidhasan9@gmail.com")
+        get_user_name.send_keys(USERNAME)
         time.sleep(5)
 
         get_password = self.driver.find_element(By.XPATH, "/html/body/div[2]/div/div/div[1]/div/div/div/div[1]/section/main/article/div[2]/div[1]/div[2]/form/div/div[2]/div/label/input")
-        get_password.send_keys("19171518-Sagor")
+        get_password.send_keys(PASSWORD)
 
         get_login_btn = self.driver.find_element(By.XPATH, "/html/body/div[2]/div/div/div[1]/div/div/div/div[1]/section/main/article/div[2]/div[1]/div[2]/form/div/div[3]")
         get_login_btn.click()
