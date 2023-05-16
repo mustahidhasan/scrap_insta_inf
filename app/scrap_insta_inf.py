@@ -1,25 +1,29 @@
-import os
 import csv
+import os
+import random
 import time
-from selenium.webdriver.common.by import By
-from driver_setup import DriverSetup
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.keys import Keys
+
 from dotenv import load_dotenv
+from driver_setup import DriverSetup
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
 
 # Load environment variables from .env file
 load_dotenv()
 
 # Read username and password from environment variables
-USERNAME = os.getenv('USERNAME')
-PASSWORD = os.getenv('PASSWORD')
+USERNAME = os.getenv("USER")
+PASSWORD = os.getenv("PASSWORD")
 """
 InstagramInfluencer class.
 
 
 
 """
+
+
 class InstagramInfluencer:
     def __init__(self, keyword, url):
         """
@@ -51,70 +55,104 @@ class InstagramInfluencer:
             print(f"Error initializing the driver: {e}")
             self.close_driver()
             raise e
-    
+
     def login(self):
-       """
-         Login the Instagram with the credential.
+        """
+        Login the Instagram with the credential.
 
-       """
-       try:
-        self.driver.get(self.url)
-        time.sleep(5)
+        """
+        try:
+            self.driver.get(self.url)
+            time.sleep(self.generate_randon_sleep_time())
 
-        get_user_name = self.driver.find_element(By.XPATH, "/html/body/div[2]/div/div/div[1]/div/div/div/div[1]/section/main/article/div[2]/div[1]/div[2]/form/div/div[1]/div/label/input")
-        get_user_name.send_keys(USERNAME)
-        time.sleep(5)
+            get_user_name = self.driver.find_element(
+                By.XPATH,
+                "/html/body/div[2]/div/div/div[1]/div/div/div/div[1]/section/main/article/div[2]/div[1]/div[2]/form/div/div[1]/div/label/input",
+            )
+            time.sleep(self.generate_randon_sleep_time())
+            get_user_name.send_keys(USERNAME)
+            time.sleep(self.generate_randon_sleep_time())
 
-        get_password = self.driver.find_element(By.XPATH, "/html/body/div[2]/div/div/div[1]/div/div/div/div[1]/section/main/article/div[2]/div[1]/div[2]/form/div/div[2]/div/label/input")
-        get_password.send_keys(PASSWORD)
+            get_password = self.driver.find_element(
+                By.XPATH,
+                "/html/body/div[2]/div/div/div[1]/div/div/div/div[1]/section/main/article/div[2]/div[1]/div[2]/form/div/div[2]/div/label/input",
+            )
+            time.sleep(self.generate_randon_sleep_time())
+            get_password.send_keys(PASSWORD)
+            time.sleep(self.generate_randon_sleep_time())
 
-        get_login_btn = self.driver.find_element(By.XPATH, "/html/body/div[2]/div/div/div[1]/div/div/div/div[1]/section/main/article/div[2]/div[1]/div[2]/form/div/div[3]")
-        get_login_btn.click()
-        time.sleep(5)
-       except Exception as e:
-              print(f"Error login the Instagram: {e}")
-              self.close_driver()
-              raise e
-       
+            get_login_btn = self.driver.find_element(
+                By.XPATH,
+                "/html/body/div[2]/div/div/div[1]/div/div/div/div[1]/section/main/article/div[2]/div[1]/div[2]/form/div/div[3]",
+            )
+
+            time.sleep(self.generate_randon_sleep_time())
+            get_login_btn.click()
+            time.sleep(self.generate_randon_sleep_time())
+
+        except Exception as e:
+            print(f"Error login the Instagram: {e}")
+            self.close_driver()
+            raise e
+
+    def generate_randon_sleep_time(self):
+        """
+        Generate random sleep time between 1 to 10 seconds.
+        """
+        return random.randint(1, 10)
+
     def search_influencer(self):
         try:
             # get the search box
             print("into the search influencer")
-            time.sleep(5)
+            time.sleep(self.generate_randon_sleep_time())
             # clieck not now
-            click_not_now = self.driver.find_element(By.XPATH, "/html/body/div[2]/div/div/div[2]/div/div/div/div[1]/div[1]/div[2]/section/main/div/div/div/div/div")
+            click_not_now = self.driver.find_element(
+                By.XPATH,
+                "/html/body/div[2]/div/div/div[2]/div/div/div/div[1]/div[1]/div[2]/section/main/div/div/div/div/div",
+            )
             click_not_now.click()
-            time.sleep(5)
-
+            time.sleep(self.generate_randon_sleep_time())
 
             # click notification not now
-            click_notification_not_now = self.driver.find_element(By.XPATH, "/html/body/div[2]/div/div/div[3]/div/div/div[1]/div/div[2]/div/div/div/div/div[2]/div/div/div[3]/button[2]")
+            click_notification_not_now = self.driver.find_element(
+                By.XPATH,
+                "/html/body/div[2]/div/div/div[3]/div/div/div[1]/div/div[2]/div/div/div/div/div[2]/div/div/div[3]/button[2]",
+            )
             click_notification_not_now.click()
-            time.sleep(10)
+            time.sleep(self.generate_randon_sleep_time())
 
             # get the search option not working
-            click_search_option = self.driver.find_element(By.XPATH, "/html/body/div[2]/div/div/div[2]/div/div/div/div[1]/div[1]/div[1]/div/div/div/div/div[2]/div[2]")
-            self.driver.execute_script("arguments[0].scrollIntoView();", click_search_option)
+            click_search_option = self.driver.find_element(
+                By.XPATH,
+                "/html/body/div[2]/div/div/div[2]/div/div/div/div[1]/div[1]/div[1]/div/div/div/div/div[2]/div[2]",
+            )
+            self.driver.execute_script(
+                "arguments[0].scrollIntoView();", click_search_option
+            )
             click_search_option.click()
-            time.sleep(5)
+            time.sleep(self.generate_randon_sleep_time())
 
-            #get the search box & search the influencer
-            get_search_box = self.driver.find_element(By.XPATH, "/html/body/div[2]/div/div/div[2]/div/div/div/div[1]/div[1]/div[1]/div/div/div[2]/div/div/div[2]/div[1]/div/input")
-            get_search_box.send_keys(self.keyword) 
-            time.sleep(5)
+            # get the search box & search the influencer
+            get_search_box = self.driver.find_element(
+                By.XPATH,
+                "/html/body/div[2]/div/div/div[2]/div/div/div/div[1]/div[1]/div[1]/div/div/div[2]/div/div/div[2]/div[1]/div/input",
+            )
+            get_search_box.send_keys(self.keyword)
+            time.sleep(self.generate_randon_sleep_time())
             get_search_box.send_keys(Keys.ENTER)
-            time.sleep(2)
+            time.sleep(self.generate_randon_sleep_time())
             get_search_box.send_keys(Keys.ENTER)
-
 
             time.sleep(50)
-            #click the search option
+            # click the search option
             # click_search_option.click()
-            
+
         except Exception as e:
             print(f"Error search the influencer: {e}")
             self.close_driver()
             raise e
+
     def close_driver(self):
         """
         Close the web driver.
@@ -126,7 +164,7 @@ class InstagramInfluencer:
 
     def run(self):
         """
-        Run the Instagram influencer information.. 
+        Run the Instagram influencer information..
 
         Returns:
         None
@@ -136,6 +174,7 @@ class InstagramInfluencer:
         self.search_influencer()
         print(f"{self.keyword} done")
         # self.close_driver()
+
 
 # get the Instagram influencer information from command.py and app.py file
 def get_insta_inf_info(url, keyword_item, func):
@@ -153,7 +192,7 @@ def get_insta_inf_info(url, keyword_item, func):
     # print("linee 174", keyword_item, url, func)
 
     # initialize the InstagramInfluencer class
-    insta_info_info = InstagramInfluencer(keyword_item,url)
+    insta_info_info = InstagramInfluencer(keyword_item, url)
     # run the InstagramInfluencer script
     try:
         insta_info_info.run()
@@ -161,7 +200,3 @@ def get_insta_inf_info(url, keyword_item, func):
         print(f"Error running the Instagram script: {e}")
         insta_info_info.close_driver()
         raise e
-
-
-
-
